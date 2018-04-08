@@ -1,0 +1,32 @@
+设计一个算法，计算出n阶乘中尾部零的个数。
+  例如：5!=120，因此应该返回1。
+  
+分析：
+    尾数为0，则一定是：偶数*5。
+    5,10,15,20,25...
+    对于25。则会产生两个0。
+    
+    可以分解因式为 5 * （1,2,3,4,5,6...）
+    同样对于括号里面的（1,2,3,4,5,6,7...）同样可以抽取出5,10，15,20...
+    
+    括号里面的每一个数都有一个0，相当于：n / 5。但对于（5,10,15,25）
+    又可以抽取：5（1,2,3,4,5...）
+    
+    相当于：n / 5 / 5
+    
+    知道抽取不出。相当于：n / 5 / 5 / 5 ... == 0的时候为止。
+    
+      public long trailingZeros(long n) {
+        // write your code here, try to do it without arithmetic operators.
+        if (n < 5) {
+            return 0L;
+        }
+        
+        long count = 0L;
+        long temp = n / 5;
+        while (temp != 0) {
+            count += temp;
+            temp /= 5;
+        }
+        return count;
+    }
